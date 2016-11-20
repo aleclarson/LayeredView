@@ -8,12 +8,12 @@ emptyFunction = require "emptyFunction"
 
 type = Type "Layer"
 
-type.defineOptions
+type.defineArgs
   render: Function
 
-type.defineValues (options) ->
+type.defineValues (render) ->
 
-  __renderLayer: options.render if @__renderLayer is emptyFunction
+  __renderLayer: render if @__renderLayer is emptyFunction
 
   _index: null
 
