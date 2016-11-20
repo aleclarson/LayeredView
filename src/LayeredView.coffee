@@ -16,18 +16,15 @@ type.defineValues ->
 
   _elements: []
 
-type.defineGetters
+type.defineListeners ->
 
-  index: -> @_index
-
-type.definePrototype
-
-  layer:
-    get: -> @_layers[@_index]
-    set: (layer, oldLayer) ->
-      assertType layer, Layer
+  if isType @props.layer, AnimatedValue
+    @props.layer.didSet (layer, oldLayer) =>
+      assertType layer, Layer.Kind
       oldLayer.hide() if oldLayer
-      if layer.index is null
+      if layer is null
+        @_index = -1
+      else if layer.index is null
         @_index = -1 + @_layers.push layer
         @_elements.push null
         try @forceUpdate()
@@ -41,6 +38,7 @@ type.definePrototype
 #
 
 type.defineProps
+  layer: Layer.Kind
   style: Style
   layerStyle: Style
 
@@ -56,6 +54,8 @@ type.defineMethods
     return @_elements
 
   _renderLayer: (index, style) ->
-    @_elements[index] ?= @_layers[index].render {style}
+    if index >= 0
+      @_elements[index] ?= @_layers[index].render {style}
+    return
 
 module.exports = type.build()
