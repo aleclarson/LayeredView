@@ -1,0 +1,18 @@
+{
+  "name": "LayeredView",
+  "version": "1.0.0",
+  "main": "js/LayeredView",
+  "plugins": [
+    "lotus-coffee"
+  ],
+  "scripts": {
+    "build": "coffee-build -v 1.11.x -b -o js src",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {
+    "Animated": "aleclarson/Animated#3.0.0",
+    "assertType": "aleclarson/assertType#2.0.1",
+    "modx": "aleclarson/modx#2.0.0",
+    "react-validators": "aleclarson/react-validators#1.0.0"
+  }
+}
