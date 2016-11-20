@@ -4,6 +4,8 @@
 {View} = require "modx/views"
 {Type} = require "modx"
 
+emptyFunction = require "emptyFunction"
+
 type = Type "Layer"
 
 type.defineOptions
@@ -11,7 +13,7 @@ type.defineOptions
 
 type.defineValues (options) ->
 
-  _render: options.render
+  __renderLayer: options.render if @__renderLayer is emptyFunction
 
   _index: null
 
@@ -33,6 +35,10 @@ type.addMixin Hideable,
   hide: ->
     @opacity.set 0
 
+type.defineHooks
+
+  __renderLayer: emptyFunction
+
 #
 # Rendering
 #
@@ -51,6 +57,6 @@ type.render ->
 
   return @_element = View
     style: style
-    children: @_render()
+    children: @__renderLayer()
 
 module.exports = type.build()

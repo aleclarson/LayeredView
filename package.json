@@ -12,6 +12,7 @@
   "dependencies": {
     "Animated": "aleclarson/Animated#3.0.0",
     "assertType": "aleclarson/assertType#2.0.1",
+    "emptyFunction": "aleclarson/emptyFunction#1.0.0",
     "modx": "aleclarson/modx#2.0.0",
     "react-validators": "aleclarson/react-validators#1.0.0"
   }
