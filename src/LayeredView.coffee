@@ -3,10 +3,13 @@
 {View} = require "modx/views"
 
 assertType = require "assertType"
+Null = require "Null"
 
 Layer = require "./Layer"
 
 type = Component "LayeredView"
+
+type.defineStatics {Layer}
 
 type.defineValues ->
 
@@ -20,16 +23,24 @@ type.defineListeners ->
 
   if isType @props.layer, AnimatedValue
     @props.layer.didSet (layer, oldLayer) =>
-      assertType layer, Layer.Kind
-      oldLayer.hide() if oldLayer
+
+      assertType layer, LayeredView.propTypes.layer
+      return if layer is oldLayer
+
+      if oldLayer
+        oldLayer.hide()
+
       if layer is null
         @_index = -1
-      else if layer.index is null
-        @_index = -1 + @_layers.push layer
+        return
+
+      if layer.index is null
+        layer._index = -1 + @_layers.push layer
+        @_index = layer._index
         @_elements.push null
         try @forceUpdate()
       else
-        @_index = layer.index
+        @_index = layer._index
         layer.show()
       return
 
@@ -38,24 +49,21 @@ type.defineListeners ->
 #
 
 type.defineProps
-  layer: Layer.Kind
+  layer: Layer.Kind.or Null
   style: Style
   layerStyle: Style
 
 type.render ->
+  @_renderLayer @_index, @props.layerStyle
   return View
     style: @props.style
-    children: @_renderLayers()
+    children: @_elements
 
 type.defineMethods
-
-  _renderLayers: ->
-    @_renderLayer @_index, @props.layerStyle
-    return @_elements
 
   _renderLayer: (index, style) ->
     if index >= 0
       @_elements[index] ?= @_layers[index].render {style}
     return
 
-module.exports = type.build()
+module.exports = LayeredView = type.build()
