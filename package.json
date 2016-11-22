@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "Animated": "aleclarson/Animated#3.0.0",
+    "Null": "aleclarson/Null#1.0.1",
     "assertType": "aleclarson/assertType#2.0.1",
     "emptyFunction": "aleclarson/emptyFunction#1.0.0",
     "modx": "aleclarson/modx#2.0.0",
