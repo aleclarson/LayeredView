@@ -1,15 +1,15 @@
 
 {AnimatedValue} = require "Animated"
 {Style} = require "react-validators"
-{View} = require "modx/views"
-{Type} = require "modx"
 
 emptyFunction = require "emptyFunction"
+ReactType = require "modx/lib/Type"
+View = require "modx/lib/View"
 
 revealedStyle = {position: "relative", opacity: 1}
 concealedStyle = {position: "absolute", opacity: 0}
 
-type = Type "Layer"
+type = ReactType "Layer"
 
 type.defineArgs
   render: Function.or Object
