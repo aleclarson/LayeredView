@@ -1,12 +1,14 @@
 
-{Component} = require "modx"
-{View} = require "modx/views"
-
+ReactComponent = require "modx/lib/Component"
 assertType = require "assertType"
+View = require "modx/lib/View"
+Null = require "Null"
 
 Layer = require "./Layer"
 
-type = Component "LayeredView"
+type = ReactComponent "LayeredView"
+
+type.defineStatics {Layer}
 
 type.defineValues ->
 
@@ -16,23 +18,28 @@ type.defineValues ->
 
   _elements: []
 
-type.defineGetters
+type.defineListeners ->
 
-  index: -> @_index
+  if isType @props.layer, AnimatedValue
+    @props.layer.didSet (layer, oldLayer) =>
 
-type.definePrototype
+      assertType layer, LayeredView.propTypes.layer
+      return if layer is oldLayer
 
-  layer:
-    get: -> @_layers[@_index]
-    set: (layer, oldLayer) ->
-      assertType layer, Layer
-      oldLayer.hide() if oldLayer
+      if oldLayer
+        oldLayer.hide()
+
+      if layer is null
+        @_index = -1
+        return
+
       if layer.index is null
-        @_index = -1 + @_layers.push layer
+        layer._index = -1 + @_layers.push layer
+        @_index = layer._index
         @_elements.push null
         try @forceUpdate()
       else
-        @_index = layer.index
+        @_index = layer._index
         layer.show()
       return
 
@@ -41,21 +48,21 @@ type.definePrototype
 #
 
 type.defineProps
+  layer: Layer.Kind.or Null
   style: Style
   layerStyle: Style
 
 type.render ->
+  @_renderLayer @_index, @props.layerStyle
   return View
     style: @props.style
-    children: @_renderLayers()
+    children: @_elements
 
 type.defineMethods
 
-  _renderLayers: ->
-    @_renderLayer @_index, @props.layerStyle
-    return @_elements
-
   _renderLayer: (index, style) ->
-    @_elements[index] ?= @_layers[index].render {style}
+    if index >= 0
+      @_elements[index] ?= @_layers[index].render {style}
+    return
 
-module.exports = type.build()
+module.exports = LayeredView = type.build()
