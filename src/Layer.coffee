@@ -12,7 +12,7 @@ concealedStyle = {position: "absolute", opacity: 0}
 type = Type "Layer"
 
 type.defineArgs
-  render: Function
+  render: Function.or Object
 
 type.defineValues (render) ->
 
