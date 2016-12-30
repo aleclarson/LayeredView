@@ -19,37 +19,55 @@ type.defineValues ->
   _elements: []
 
 type.defineListeners ->
-
-  if isType @props.layer, AnimatedValue
+  if @props.layer instanceof AnimatedValue
     @props.layer.didSet (layer, oldLayer) =>
-
       assertType layer, LayeredView.propTypes.layer
-      return if layer is oldLayer
+      @_onLayerChange layer, oldLayer
 
-      if oldLayer
-        oldLayer.hide()
+#
+# Prototype
+#
 
-      if layer is null
-        @_index = -1
-        return
+type.defineGetters
 
-      if layer.index is null
-        layer._index = -1 + @_layers.push layer
-        @_index = layer._index
-        @_elements.push null
-        try @forceUpdate()
-      else
-        @_index = layer._index
-        layer.show()
+  layer: ->
+    if layer = @props.layer
+      if layer instanceof AnimatedValue
+      then layer.get()
+      else layer
+    else null
+
+type.defineMethods
+
+  _onLayerChange: (layer, oldLayer) ->
+
+    assertType layer, LayeredView.propTypes.layer
+    return if layer is oldLayer
+
+    if oldLayer
+      oldLayer.hide()
+
+    if layer is null
+      @_index = -1
       return
+
+    if layer.index is null
+      layer._index = -1 + @_layers.push layer
+      @_index = layer._index
+      @_elements.push null
+      try @forceUpdate()
+    else
+      @_index = layer._index
+      layer.show()
+    return
 
 #
 # Rendering
 #
 
 type.defineProps
-  layer: Layer.Kind.or Null
   style: Style
+  layer: Layer.Kind.or Null
   layerStyle: Style
 
 type.render ->
@@ -57,6 +75,9 @@ type.render ->
   return View
     style: @props.style
     children: @_elements
+
+type.willMount ->
+  @_onLayerChange @layer, null
 
 type.defineMethods
 
