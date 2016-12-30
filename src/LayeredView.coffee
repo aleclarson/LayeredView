@@ -69,6 +69,7 @@ type.defineProps
   style: Style
   layer: Layer.Kind.or Null
   layerStyle: Style
+  onUpdate: Function
 
 type.render ->
   @_renderLayer @_index, @props.layerStyle
@@ -78,6 +79,11 @@ type.render ->
 
 type.willMount ->
   @_onLayerChange @layer, null
+
+type.didUpdate ->
+   if onUpdate = @props.onUpdate
+     onUpdate @layer
+    return
 
 type.defineMethods
 
