@@ -3,13 +3,13 @@
 {Style} = require "react-validators"
 
 emptyFunction = require "emptyFunction"
-ReactType = require "modx/lib/Type"
 View = require "modx/lib/View"
+modx = require "modx"
 
 revealedStyle = {position: "relative", opacity: 1}
 concealedStyle = {position: "absolute", opacity: 0}
 
-type = ReactType "Layer"
+type = modx.Type "Layer"
 
 type.defineArgs
   render: Function.or Object

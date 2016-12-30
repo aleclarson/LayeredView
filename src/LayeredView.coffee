@@ -1,12 +1,12 @@
 
-ReactComponent = require "modx/lib/Component"
 assertType = require "assertType"
 View = require "modx/lib/View"
 Null = require "Null"
+modx = require "modx"
 
 Layer = require "./Layer"
 
-type = ReactComponent "LayeredView"
+type = modx.Component "LayeredView"
 
 type.defineStatics {Layer}
 
