@@ -16,11 +16,11 @@ type.defineArgs
 
 type.defineValues (render) ->
 
+  _root: null
+
   _index: null
 
   _style: revealedStyle
-
-  _view: null
 
   __renderLayer: if @__renderLayer is emptyFunction then render
 
@@ -34,11 +34,11 @@ type.addMixin Hideable,
 
   show: ->
     @_style = revealedStyle
-    @_view?.setNativeProps {style: revealedStyle}
+    @_root?.setNativeProps {style: revealedStyle}
 
   hide: ->
     @_style = concealedStyle
-    @_view?.setNativeProps {style: concealedStyle}
+    @_root?.setNativeProps {style: concealedStyle}
 
 type.defineHooks
 
@@ -56,7 +56,7 @@ type.shouldUpdate ->
 
 type.render ->
   @_element = View
-    ref: (view) => @_view = view
+    ref: (view) => @_root = view
     style: [@props.style, @_style]
     children: @__renderLayer()
 
