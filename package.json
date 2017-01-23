@@ -1,0 +1,13 @@
+{
+  "name": "LayeredView",
+  "version": "1.1.2",
+  "main": "js/LayeredView",
+  "dependencies": {
+    "Animated": "aleclarson/Animated#3.5.0",
+    "Null": "aleclarson/Null#1.0.1",
+    "assertType": "aleclarson/assertType#2.0.1",
+    "emptyFunction": "aleclarson/emptyFunction#1.0.0",
+    "modx": "aleclarson/modx#2.4.1",
+    "react-validators": "aleclarson/react-validators#1.0.1"
+  }
+}
