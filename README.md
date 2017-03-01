@@ -1,2 +1,2 @@
 
-# LayeredView v1.1.2 ![stable](https://img.shields.io/badge/stability-stable-4EBA0F.svg?style=flat)
+# LayeredView v1.2.0 ![stable](https://img.shields.io/badge/stability-stable-4EBA0F.svg?style=flat)
