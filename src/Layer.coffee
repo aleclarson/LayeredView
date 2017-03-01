@@ -11,8 +11,7 @@ concealedStyle = {position: "absolute", opacity: 0}
 
 type = modx.Type "Layer"
 
-type.defineArgs
-  render: Function.or Object
+type.defineArgs [Function.or Object]
 
 type.defineValues (render) ->
 
