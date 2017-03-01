@@ -10,7 +10,7 @@
     "postinstall": "npm run build"
   },
   "dependencies": {
-    "Animated": "aleclarson/Animated#3.5.0",
+    "Animated": "aleclarson/Animated#3.6.0",
     "Null": "aleclarson/Null#1.0.1",
     "assertType": "aleclarson/assertType#2.0.1",
     "emptyFunction": "aleclarson/emptyFunction#1.0.0",
