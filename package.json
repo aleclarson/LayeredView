@@ -14,7 +14,7 @@
     "Null": "aleclarson/Null#1.0.1",
     "assertType": "aleclarson/assertType#2.0.1",
     "emptyFunction": "aleclarson/emptyFunction#1.0.0",
-    "modx": "aleclarson/modx#2.4.1",
+    "modx": "aleclarson/modx#2.5.0",
     "react-validators": "aleclarson/react-validators#1.0.1"
   }
 }
